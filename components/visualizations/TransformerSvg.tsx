@@ -1,0 +1,6 @@
+"use client";
+import { motion } from "framer-motion";
+export default function TransformerSvg({ selected, onSelect }: { selected: number | null; onSelect: (index: number) => void }) {
+  const blocks = ["Input", "Embedding", "Layer Normalization", "Self Attention", "Residual", "MLP / FFN", "Residual", "Output"];
+  return <svg viewBox="0 0 1000 650" preserveAspectRatio="xMidYMid meet" className="h-full w-full" aria-label="Conceptual transformer pipeline"><text x="30" y="35" fill="#94a3b8" fontSize="17">CONCEPTUAL TRANSFORMER</text>{blocks.map((block, index) => <g key={`transformer-svg-${index}-${block}`} onClick={() => onSelect(index)} className="cursor-pointer"><motion.rect x="350" y={55 + index * 68} width="300" height="42" rx="10" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: index * .08 }} fill={selected === index ? "#352879" : "#111827"} stroke={selected === index ? "#a99aff" : "#334155"} /><text x="500" y={81 + index * 68} textAnchor="middle" fill="white" fontSize="14">{block}</text>{index < blocks.length - 1 && <path d={`M500 ${97 + index * 68}v26`} stroke="#2dd4bf" strokeWidth="2" />}</g>)}</svg>;
+}

@@ -1,0 +1,7 @@
+"use client";
+import { motion } from "framer-motion";
+import type { Token } from "../../lib/simulator/types";
+export default function TokenFlowSvg({ tokens, onSelect }: { tokens: Token[]; onSelect: (index: number) => void }) {
+  const visible = tokens.slice(0, 6);
+  return <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" className="h-full w-full" aria-label="Conceptual token flow"><text x="500" y="42" textAnchor="middle" fill="#94a3b8" fontSize="18">PROMPT  ↓  TOKENIZER</text>{visible.map((token, index) => <motion.g key={`flow-${token.id}-${index}`} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * .1 }} onClick={() => onSelect(index)} className="cursor-pointer"><rect x={180 + (index % 3) * 220} y={130 + Math.floor(index / 3) * 145} width="150" height="70" rx="14" fill="#083344" stroke="#2dd4bf" /><text x={255 + (index % 3) * 220} y={160 + Math.floor(index / 3) * 145} textAnchor="middle" fill="#a5f3fc" fontSize="14">TOKEN {index + 1}</text><text x={255 + (index % 3) * 220} y={185 + Math.floor(index / 3) * 145} textAnchor="middle" fill="white" fontSize="16">{token.text}</text></motion.g>)}<path d="M500 425v80" stroke="#7c5cff" strokeWidth="3" markerEnd="url(#arrow)" /><text x="500" y="555" textAnchor="middle" fill="#c7bfff" fontSize="18">EMBEDDINGS</text><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0L8 4L0 8z" fill="#7c5cff" /></marker></defs></svg>;
+}

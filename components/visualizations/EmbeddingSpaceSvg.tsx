@@ -1,0 +1,6 @@
+"use client";
+import { motion } from "framer-motion";
+import type { EmbeddingPoint } from "../../lib/simulator/types";
+export default function EmbeddingSpaceSvg({ points, selected, onSelect }: { points: EmbeddingPoint[]; selected: number | null; onSelect: (index: number) => void }) {
+  return <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" className="h-full w-full" aria-label="Illustrative two dimensional embedding projection"><text x="30" y="35" fill="#94a3b8" fontSize="17">ILLUSTRATIVE 2D PROJECTION</text><path d="M80 520H930M80 520V75" stroke="#334155" />{points.map((point, index) => <motion.g key={point.id} initial={{ scale: 0 }} animate={{ scale: selected === index ? 1.35 : 1 }} onClick={() => onSelect(index)} className="cursor-pointer"><circle cx={80 + point.x * 8.2} cy={520 - point.y * 7.5} r="9" fill="#2dd4bf" stroke={selected === index ? "white" : "none"} strokeWidth="3" /><text x={95 + point.x * 8.2} y={515 - point.y * 7.5} fill="#cbd5e1" fontSize="14">{point.token}</text></motion.g>)}</svg>;
+}

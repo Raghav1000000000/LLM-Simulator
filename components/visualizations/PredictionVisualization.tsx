@@ -1,0 +1,6 @@
+"use client";
+import { motion } from "framer-motion";
+import { normalizedPredictions } from "../../lib/simulator/simulation";
+export default function PredictionVisualization() {
+  return <div className="flex h-[480px] flex-col justify-center"><div className="mx-auto w-full max-w-2xl"><div className="mb-8 rounded-2xl border border-white/10 bg-white/[.03] p-5 text-center font-mono text-sm text-slate-300">&quot;Quantum computing is&quot;</div><div className="space-y-3">{normalizedPredictions.map((prediction, index) => <div key={`prediction-${prediction.token}`} className="flex items-center gap-3"><div className="w-20 text-right font-mono text-xs text-slate-400">{prediction.token}</div><div className="h-8 flex-1 overflow-hidden rounded-lg bg-white/[.04]"><motion.div initial={{ width: 0 }} animate={{ width: `${prediction.probability}%` }} transition={{ delay: index * .08, duration: .6 }} className="h-full rounded-lg bg-[#7c5cff]/60" /></div><div className="w-10 font-mono text-xs text-slate-500">{prediction.probability}%</div></div>)}</div><div className="mt-6 text-center text-[11px] text-slate-600">Illustrative probabilities, normalized to an approximately 100% example distribution.</div></div></div>;
+}
